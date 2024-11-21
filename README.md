@@ -32,3 +32,5 @@ Para garantir a estabilidade do sistema, implementamos um Controle de Taxa de Re
 1. O usuário acessa a página inicial para realizar a consulta de um candidato.
 2. O sistema verifica o nome do candidato nos arquivos CSV locais. Se o candidato for encontrado, o sistema retorna os dados do partido e realiza uma busca por processos na API do Escavador.
 3. A aplicação exibe a imagem do candidato (caso disponível) e informações detalhadas dos processos, incluindo a última movimentação.
+
+Com essas funcionalidades, GovBuster oferece aos eleitores uma forma acessível e confiável de se informar sobre candidatos e suas implicações judiciais, promovendo decisões políticas mais conscientes.
