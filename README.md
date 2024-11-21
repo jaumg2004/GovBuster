@@ -8,6 +8,7 @@ GovBuster facilita o acesso aos dados de candidatos por meio de arquivos CSV for
 - Partidos e coligações,
 - Processos judiciais associados ao candidato,
 - Imagens e informações complementares.
+
 A consulta é feita em uma base local, utilizando CSVs, e pode ser complementada com a API do Escavador, que retorna informações atualizadas sobre processos e movimentações.
 
 ### 2. Controle de Requisições e Segurança
