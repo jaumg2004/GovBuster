@@ -71,7 +71,7 @@ def is_rate_limited(ip):
 
 def pegar_proposta(nome):
 
-    doc = fitz.open(rf'C:\Users\Jaum\Downloads\proposta_governo_2022_BR\{nome}.pdf')
+    doc = fitz.open(rf'Static\proposta_governo_2022_BR\{nome}.pdf')
     for pagina in doc:
         texto = pagina.get_text()
     doc.close()
