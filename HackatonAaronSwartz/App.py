@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template
 import time
 import os
 import pandas as pd
+import fitz
 
 app = Flask(__name__, template_folder='Template', static_folder='Static')
 
@@ -27,7 +28,7 @@ df_final = pd.concat(dataframes, ignore_index=True)
 
 # Função para verificar se o nome está nos arquivos CSV
 def nome_presente_nos_csv(nome):
-    if nome in df_final['NM_CANDIDATO'].values:
+    if nome in df_final['NM_URNA_CANDIDATO'].values:
         return True
     return False  # Nome não encontrado
 
@@ -44,7 +45,7 @@ def encontrar_foto(nome):
 # Função para buscar o partido do candidato
 def buscar_partido(nome):
     # Verifica se o nome está no DataFrame
-    candidato = df_final[df_final['NM_CANDIDATO'] == nome]
+    candidato = df_final[df_final['NM_URNA_CANDIDATO'] == nome]
 
     if not candidato.empty:
         # Retorna o partido do candidato
@@ -67,6 +68,16 @@ def is_rate_limited(ip):
         return True
     requests.append(current_time)
     return False
+
+def pegar_proposta(nome):
+
+    doc = fitz.open(rf'C:\Users\Jaum\Downloads\proposta_governo_2022_BR\{nome}.pdf')
+    for pagina in doc:
+        texto = pagina.get_text()
+    doc.close()
+    return texto
+
+
 
 # Função para realizar a consulta de processos por nome
 def consultar_processos(nome):
@@ -118,6 +129,7 @@ def govbuster():
     # Consultar os processos
     processos = consultar_processos(nome)
     foto_caminho = encontrar_foto(nome)
+    proposta = pegar_proposta(nome)
 
     if processos is None:
         return jsonify({"erro": "Erro ao consultar os processos"}), 500
@@ -127,7 +139,8 @@ def govbuster():
         return jsonify({
             "partido": partido,
             "processos": processos,
-            "foto_url": foto_caminho
+            "foto_url": foto_caminho,
+            "proposta": proposta
         }), 200
 
 if __name__ == '__main__':
